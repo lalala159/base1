@@ -68,7 +68,6 @@
             type = 1
         }
         var sex = $("input[name='sex']:checked").val();
-        alert(1);
         if (nickname == '' || nickname == null) {
             layer.msg('姓名不能为空', {
                 icon: 2,
@@ -90,7 +89,6 @@
                 time: 2000
             });
         }else {
-            alert(2);
             $.post("/user/edit", {
                 nickname: nickname,
                 account: account,
