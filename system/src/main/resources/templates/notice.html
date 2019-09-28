@@ -31,59 +31,34 @@
     })
     function initData(n, pageSize) {
         $("#tbody").empty();
-        $.get("/sys/queryList", {'pageNum': n, 'pageSize': pageSize}, function (data) {
-            initPage(n, pageSize, data.data.total);
+        $.get("/notice/queryList", {'pageNum': n, 'pageSize': pageSize}, function (data) {
+            initPage(n, pageSize, data.total);
             var str = '';
-            var list = data.data.list;
+            var list = data.list;
             $.each(list, function (n, val) {
                 str += '<tr>' +
                     '                                <td>' +
                     '                                    <a href="basic_table.html#">' +
-                    '                                        ' + val.nickname + '' +
+                    '                                        ' + val.title + '' +
                     '                                    </a>' +
                     '                                </td>' +
-                    '                                <td class="hidden-phone">' + val.account + '</td>' +
-                    '                                <td>' + (val.sex == 1 ? '男' : '女') + '</td>' +
-                    '                                <td><span class="label label-warning label-mini">' + val.phone + '</span></td>' +
+                    '                                <td class="hidden-phone">' + val.content + '</td>' +
+                    '                                <td>' + val.sendDate  + '</td>' +
+                    '                                <td><span class="label label-warning label-mini">' + val.userId + '</span></td>' +
                     '                                <td>' +
-                    '                                    <button class="btn btn-success btn-xs" onclick="editStatus('+val.status+', '+val.id+')"><i class="fa '+(val.status == 0?'fa-check':'fa-ban')+'" title="'+(val.status == 0?'启用':'禁用')+'"></i></button>' +
-                    '                                    <button class="btn btn-primary btn-xs" onclick="edit(\''+val.nickname+'\',\''+val.account+'\', \''+val.sex+'\', \''+val.phone+'\', \''+val.id+'\')"><i class="fa fa-pencil"></i></button>' +
-                    '                                    <button class="btn btn-danger btn-xs" onclick="delete1('+val.id+')"><i class="fa fa-trash-o "></i></button>' +
+                    '                                    <button class="btn btn-primary btn-xs" onclick="edit(\''+val.title+'\',\''+val.content+'\', \''+val.id+'\')"><i class="fa fa-pencil"></i></button>' +
+                    '                                    <button class="btn btn-danger btn-xs" onclick="delete1(\''+val.id+'\')"><i class="fa fa-trash-o "></i></button>' +
                     '                                </td>' +
                     '                            </tr>'
             });
             $("#tbody").append(str);
         });
     }
-    function editStatus(obj, id){
-        if(obj == 1){
-            obj = 0;
-        }else{
-            obj = 1;
-        }
-        layer.confirm('确定修改状态？', {
-            btn: ['确定','取消']
-        }, function(){
-            $.post("/user/editStatus", {'status': obj, 'id': id}, function (data) {
-                if(data == 'success'){
-                    layer.msg(
-                        '修改成功',{
-                            icon:1,
-                            time:2000
-                        }
-                    )
-                    initData(1, 15);
-                }
-            });
-        },function () {
-            layer.closeAll('dialog');
-        });
-    }
     function delete1(id){
         layer.confirm('确定删除？', {
             btn: ['确定','取消']
         }, function(){
-            $.post("/user/delete", {'id': id}, function (data) {
+            $.post("/notice/delete", {'id': id}, function (data) {
                 if(data == 'success'){
                     layer.msg(
                         '删除成功',{
@@ -98,21 +73,19 @@
             layer.closeAll('dialog');
         });
     }
-    function edit(nickname,account,sex,phone, id){
+    function edit(title, content, id){
         data = {
-            nickname : nickname,
-            account : account,
-            sex : sex,
-            phone : phone,
+            title : title,
+            content : content,
             id : id
         }
         layer.open({
             type: 2, //Layer提供了5种层类型。可传入的值有：0（信息框，默认）1（页面层）2（iframe层）3（加载层）4（tips层）,
             shade:0.1, //遮罩层透明度
-            area:['650px','300px'], //弹出层宽高
+            area:['850px','600px'], //弹出层宽高
             scrollbar: false,
             title:'信息修改',//弹出层标题
-            content: ['/form/userEdit.html','no'],
+            content: ['/form/notice/noticeEdit.html','no'],
             end:function(){
                 initData(1, 15);
             }
@@ -122,10 +95,10 @@
         layer.open({
             type: 2, //Layer提供了5种层类型。可传入的值有：0（信息框，默认）1（页面层）2（iframe层）3（加载层）4（tips层）,
             shade:0.1, //遮罩层透明度
-            area:['650px','300px'], //弹出层宽高
+            area:['850px','600px'], //弹出层宽高
             scrollbar: false,
             title:'新增',//弹出层标题
-            content: ['/form/userAdd.html','no'],
+            content: ['/form/notice/noticeAdd.html','no'],
             end:function(){
                 initData(1, 15);
             }

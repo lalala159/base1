@@ -1,0 +1,62 @@
+<link href="../../assets/css/bootstrap.css" rel="stylesheet">
+<link href="../../assets/css/style.css" rel="stylesheet">
+<script src="../../assets/js/jquery.js"></script>
+<script src="../../assets/layer/layer.js"></script>
+<div class="form-horizontal" id="editUser"
+     style="align-items: center">
+    <p style="margin: auto 220px;margin-top: 30px;"><strong style="font-size: 20px;">标题:</strong><input type="text" style="width: 350px;height: 30px;" id="title" name="title"/></p>
+    <br/>
+    <p style="margin: auto 20px;"><textarea style="width: 800px;height: 300px" id="content" name="content"></textarea></p>
+    <br>
+    <div class="form-group">
+        <div class="col-xs-offset-5 col-xs-1">
+            <button class="btn btn-primary" id="save">发布</button>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(function () {
+        var data = parent.data;
+        $("input[name='title']").val('');
+        $("#content").val('');
+        $("input[name='title']").val(data.title);
+        $("#content").val(data.content);
+    })
+    $("#save").click(function () {
+        var title = $('#title').val();
+        var content = $('#content').val();
+        if (title == '' || title == null) {
+            layer.msg('标题不能为空', {
+                icon: 2,
+                time: 2000
+            });
+        } else if (content == '' || content == null) {
+            layer.msg('内容不能为空', {
+                icon: 2,
+                time: 2000
+            });
+        }else {
+            $.post("/notice/edit", {
+                title: title,
+                id : parent.data.id,
+                content: content
+            }, function (data) {
+                var index = parent.layer.getFrameIndex(window.name);
+                if (data == 'success') {
+                    layer.msg('修改成功', {
+                        icon: 1,
+                        time: 1000
+                    },function(){
+                        parent.layer.close(index);
+                    });
+                }else{
+                    layer.msg('未知错误', {
+                        icon: 2,
+                        time: 2000
+                    });
+                }
+            });
+        }
+
+    })
+</script>

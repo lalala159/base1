@@ -72,7 +72,7 @@ public class UserServiceImpl implements UserService {
         if(StringUtils.isNotEmpty(orderBy)){
             PageHelper.startPage(pageNum, pageSize, orderBy);
         }else{
-            PageHelper.startPage(pageNum, pageSize);
+            PageHelper.startPage(pageNum, pageSize, false);
         }
         List<User> list = dao.queryList(key);
         Map<String, Object> map = new HashMap<>();
