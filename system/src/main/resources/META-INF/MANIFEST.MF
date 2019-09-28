@@ -1,0 +1,44 @@
+Manifest-Version: 1.0
+Class-Path: spring-web-5.1.8.RELEASE.jar spring-webmvc-5.1.8.RELEASE.j
+ ar httpclient-4.5.8.jar shiro-ehcache-1.4.0.jar mysql-connector-java-
+ 8.0.16.jar spring-data-commons-2.1.9.RELEASE.jar netty-transport-4.1.
+ 36.Final.jar shiro-crypto-hash-1.4.0.jar commons-io-2.2.jar spring-bo
+ ot-starter-web-2.1.6.RELEASE.jar thymeleaf-spring5-3.0.11.RELEASE.jar
+  spring-tx-5.1.8.RELEASE.jar lettuce-core-5.1.7.RELEASE.jar shiro-spr
+ ing-1.4.0.jar attoparser-2.0.5.RELEASE.jar validation-api-2.0.1.Final
+ .jar shiro-config-core-1.4.0.jar jackson-datatype-jsr310-2.9.9.jar eh
+ cache-2.10.6.jar spring-expression-5.1.8.RELEASE.jar pagehelper-5.1.2
+ .jar hibernate-validator-6.0.17.Final.jar spring-beans-5.1.8.RELEASE.
+ jar jsoup-1.11.3.jar spring-jdbc-5.1.8.RELEASE.jar spring-boot-starte
+ r-json-2.1.6.RELEASE.jar jstl-1.1.2.jar mybatis-3.4.6.jar fastjson-1.
+ 1.15.jar spring-data-keyvalue-2.1.9.RELEASE.jar druid-1.0.31.jar spri
+ ng-boot-2.1.6.RELEASE.jar mybatis-spring-boot-starter-1.3.2.jar jacks
+ on-core-2.9.9.jar mybatis-spring-boot-autoconfigure-1.3.2.jar slf4j-a
+ pi-1.7.26.jar HikariCP-3.2.0.jar javax.annotation-api-1.3.2.jar netty
+ -codec-4.1.36.Final.jar netty-common-4.1.36.Final.jar thymeleaf-3.0.1
+ 1.RELEASE.jar unbescape-1.1.6.RELEASE.jar spring-boot-starter-2.1.6.R
+ ELEASE.jar commons-lang-2.6.jar jsqlparser-1.0.jar jconsole.jar stand
+ ard-1.1.2.jar classmate-1.4.0.jar jboss-logging-3.3.2.Final.jar react
+ ive-streams-1.0.2.jar spring-boot-starter-data-redis-2.1.6.RELEASE.ja
+ r jackson-annotations-2.9.0.jar slf4j-log4j12-1.7.26.jar commons-coll
+ ections-3.2.2.jar netty-resolver-4.1.36.Final.jar jackson-databind-2.
+ 9.9.jar spring-data-redis-2.1.9.RELEASE.jar shiro-cache-1.4.0.jar nek
+ ohtml-1.9.22.jar commons-fileupload-1.3.1.jar xercesImpl-2.11.0.jar s
+ nakeyaml-1.23.jar pagehelper-spring-boot-autoconfigure-1.2.3.jar shir
+ o-core-1.4.0.jar httpcore-4.4.11.jar shiro-web-1.4.0.jar log4j-1.2.17
+ .jar commons-codec-1.11.jar shiro-crypto-core-1.4.0.jar spring-aop-5.
+ 1.8.RELEASE.jar jackson-module-parameter-names-2.9.9.jar jackson-data
+ type-jdk8-2.9.9.jar reactor-core-3.2.10.RELEASE.jar xml-apis-1.4.01.j
+ ar pagehelper-spring-boot-starter-1.2.3.jar spring-boot-autoconfigure
+ -2.1.6.RELEASE.jar spring-jcl-5.1.8.RELEASE.jar spring-core-5.1.8.REL
+ EASE.jar ehcache-core-2.6.11.jar tools.jar spring-context-5.1.8.RELEA
+ SE.jar thymeleaf-extras-java8time-3.0.4.RELEASE.jar spring-oxm-5.1.8.
+ RELEASE.jar shiro-lang-1.4.0.jar netty-buffer-4.1.36.Final.jar shiro-
+ event-1.4.0.jar commons-lang3-3.8.1.jar mybatis-spring-1.3.2.jar comm
+ ons-beanutils-1.9.3.jar spring-boot-starter-jdbc-2.1.6.RELEASE.jar ne
+ tty-handler-4.1.36.Final.jar shiro-crypto-cipher-1.4.0.jar spring-boo
+ t-starter-thymeleaf-2.1.6.RELEASE.jar spring-boot-starter-cache-2.1.6
+ .RELEASE.jar shiro-config-ogdl-1.4.0.jar spring-context-support-5.1.8
+ .RELEASE.jar
+Main-Class: com.hc.system.SystemApplication
+

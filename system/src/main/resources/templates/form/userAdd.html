@@ -1,0 +1,110 @@
+<link href="/assets/css/bootstrap.css" rel="stylesheet">
+<link href="/assets/css/style.css" rel="stylesheet">
+<script src="/assets/js/jquery.js"></script>
+<script src="../assets/layer/layer.js"></script>
+<div class="form-horizontal" id="editUser"
+      style="margin-left: 80px;margin-top: 20px;">
+    <table>
+        <tr>
+            <td><label style="text-align: right">姓名：</label><input type="text" name='nickname' id="nickname"></td>
+            <td style="padding-left: 10px;"><label style="text-align: right">用户名：</label><input type="text"
+                                                                                                name="account"
+                                                                                                id = 'account'
+                                                                                                minlength="6"
+                                                                                                maxlength="12"></td>
+        </tr>
+        <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+        </tr>
+        <tr>
+            <td><label style="text-align: right">性别：</label>男<input type="radio" checked = checked name=sex value="1">女<input type="radio"
+                                                                                                            name=sex
+                                                                                                            id = 'sex'
+                                                                                                            value="2">
+            </td>
+            <td style="padding-left: 10px;"><label style="text-align: right">手机号：</label><input type="text"
+                                                                                                name="phone"
+                                                                                                id = 'phone'
+                                                                                                 ></td>
+        </tr>
+        <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+        </tr>
+        <tr class='pwd'>
+            <td><label style="text-align: right">密码：</label><input type="password" name="password" id = 'password'></td>
+            <td style="padding-left: 10px;"><label style="text-align: right">确定密码：</label><input type="password"
+                                                                                                 name="newpassword"
+                                                                                                 id = 'newpassword'
+                                                                                                 >
+            </td>
+        </tr>
+    </table>
+    <br>
+    <div class="form-group">
+        <div class="col-xs-offset-4 col-xs-1">
+            <button class="btn btn-primary" id="save">保存</button>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $("#save").click(function () {
+        var nickname = $('#nickname').val();
+        var account = $('#account').val();
+        var phone = $('#phone').val();
+        var password = $('#password').val();
+        var newpassword = $('#newpassword').val();
+        var sex = $("input[name='sex']:checked").val();
+        if (nickname == '' || nickname == null) {
+            layer.msg('姓名不能为空', {
+                icon: 2,
+                time: 2000
+            });
+        } else if (account == '' || account == null) {
+            layer.msg('用户名不能为空', {
+                icon: 2,
+                time: 2000
+            });
+        } else if (phone == '' || phone == null) {
+            layer.msg('手机号码不能为空', {
+                icon: 2,
+                time: 2000
+            });
+        }else if (password != newpassword) {
+            layer.msg('密码不一致', {
+                icon: 2,
+                time: 2000
+            });
+        }else {
+            $.post("/user/insert", {
+                nickname: nickname,
+                account: account,
+                phone: phone,
+                password: password,
+                sex : sex
+            }, function (data) {
+                var index = parent.layer.getFrameIndex(window.name);
+                if (data == 'success') {
+                    layer.msg('新增成功', {
+                        icon: 1,
+                        time: 1000
+                    },function(){
+                        parent.layer.close(index);
+                    });
+                }else if(data == 'unique'){
+                    layer.msg('该用户名已存在', {
+                        icon: 2,
+                        time: 2000
+                    });
+                }else{
+                    layer.msg('未知错误', {
+                        icon: 2,
+                        time: 2000
+                    });
+                }
+            });
+        }
+
+    })
+</script>

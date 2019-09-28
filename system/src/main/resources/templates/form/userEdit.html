@@ -1,0 +1,128 @@
+<link href="/assets/css/bootstrap.css" rel="stylesheet">
+<link href="/assets/css/style.css" rel="stylesheet">
+<script src="/assets/js/jquery.js"></script>
+<script src="../assets/layer/layer.js"></script>
+<div class="form-horizontal" id="editUser" style="margin-left: 80px;margin-top: 20px;">
+        <table ><tr>
+            <td> <label style="text-align: right">姓名：</label><input type="text" name = 'nickname' id="nickname"></td>
+            <td style="padding-left: 10px;"> <label style="text-align: right">用户名：</label><input type="text" name="account" id="account" readonly></td>
+        </tr>
+            <tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+            <tr >
+                <td> <label style="text-align: right">性别：</label>男<input type="radio" name = sex value="1">女<input type="radio" name = sex value="0"></td>
+                <td style="padding-left: 10px;"> <label style="text-align: right">手机号：</label><input type="text" name="phone" id="phone"></td>
+            </tr>
+            <tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+            <tr >
+                <td> <label style="text-align: right">修改密码：</label><input type="checkbox" name="editpwd" id="editpwd" value="1"></td>
+
+            </tr>
+            <tr class = 'pwd'> <td > <label style="text-align: right">旧密码：</label><input type="password" name="oldpassword" id = 'oldpassword'></td></tr>
+            <tr class = 'pwd'>
+                <td> <label style="text-align: right">新密码：</label><input type="password" name="password" id = "password"></td>
+                <td style="padding-left: 10px;"> <label style="text-align: right">确定密码：</label><input type="password" name="newpassword" id="newpassword"></td>
+            </tr>
+            </table>
+<br>
+        <div class="form-group">
+                <div class="col-xs-offset-4 col-xs-1">
+                        <button class="btn btn-primary" id="save">保存</button>
+                </div>
+      </div>
+</div>
+<script type="text/javascript">
+    $(function () {
+        var data = parent.data;
+        $("input[name='nickname']").val('');
+        $("input[name='account']").val('');
+        $("input[name='phone']").val('');
+
+
+        $("input[name='nickname']").val(data.nickname);
+        $("input[name='account']").val(data.account);
+        $("input:radio[name=sex][value="+data.sex+"]").attr("checked",true);
+        $("input[name='phone']").val(data.phone);
+        $("input[name='password']").val();
+        $("input[name='newpassword']").val();
+        $('.pwd').hide();
+    })
+    $("#editpwd").change(function () {
+        if($("#editpwd").is(':checked') ){
+            $(".pwd").show();
+            $("#oldpassword").val('');
+            $("input[name='password']").val('');
+            $("input[name='newpassword']").val('');
+        }else{
+            $(".pwd").hide();
+        }
+    });
+    $("#save").click(function () {
+        var nickname = $('#nickname').val();
+        var account = $('#account').val();
+        var phone = $('#phone').val();
+        var password = $('#password').val();
+        var newpassword = $('#newpassword').val();
+        var oldpassword = $('#oldpassword').val();
+        var type = 0;
+        if($("#editpwd").is(':checked')){
+            type = 1
+        }
+        var sex = $("input[name='sex']:checked").val();
+        alert(1);
+        if (nickname == '' || nickname == null) {
+            layer.msg('姓名不能为空', {
+                icon: 2,
+                time: 2000
+            });
+        } else if (account == '' || account == null) {
+            layer.msg('用户名不能为空', {
+                icon: 2,
+                time: 2000
+            });
+        } else if (phone == '' || phone == null) {
+            layer.msg('手机号码不能为空', {
+                icon: 2,
+                time: 2000
+            });
+        }else if (password != newpassword) {
+            layer.msg('密码不一致', {
+                icon: 2,
+                time: 2000
+            });
+        }else {
+            alert(2);
+            $.post("/user/edit", {
+                nickname: nickname,
+                account: account,
+                phone: phone,
+                password: password,
+                sex : sex,
+                oldpassword : oldpassword,
+                id : parent.data.id,
+                type : type
+            }, function (data) {
+                var index = parent.layer.getFrameIndex(window.name);
+                if (data == 'success') {
+                    layer.msg('修改成功', {
+                        icon: 1,
+                        time: 1000
+                    },function(){
+                        parent.layer.close(index);
+                    });
+                }else if(data == 'errorPWD'){
+                    layer.msg('旧密码错误', {
+                        icon: 2,
+                        time: 1000
+                    });
+                }else{
+                    layer.msg('未知错误', {
+                        icon: 2,
+                        time: 1000
+                    });
+                }
+            });
+        }
+
+    })
+
+</script>

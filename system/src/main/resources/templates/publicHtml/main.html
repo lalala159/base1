@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="Dashboard">
+    <meta name="keyword" content="Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
+
+    <title>医学学联社</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="/assets/css/bootstrap.css" rel="stylesheet">
+    <!--external css-->
+    <link href="/assets/font-awesome/css/font-awesome.css" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="/assets/css/zabuto_calendar.css">
+    <link rel="stylesheet" type="text/css" href="/assets/js/gritter/css/jquery.gritter.css"/>
+    <link rel="stylesheet" type="text/css" href="/assets/lineicons/style.css">
+    <!-- Custom styles for this template -->
+    <link href="/assets/css/style.css" rel="stylesheet">
+    <link href="/assets/css/style-responsive.css" rel="stylesheet">
+    <script src="/assets/js/jquery.js"></script>
+    <link href="/assets/css/kkpager_blue.css" rel="stylesheet">
+    <script src="/assets/js/kkpager.js"></script>
+    <script src="/assets/js/pageTool.js"></script>
+    <script src="/assets/js/jquery-1.8.3.min.js"></script>
+    <script src="/assets/js/bootstrap.min.js"></script>
+    <script class="include" type="text/javascript" src="/assets/js/jquery.dcjqaccordion.2.7.js"></script>
+    <script src="/assets/js/jquery.scrollTo.min.js"></script>
+    <script src="/assets/js/jquery.nicescroll.js" type="text/javascript"></script>
+    <script src="/assets/js/jquery.sparkline.js"></script>
+    <script src="/assets/layer/layer.js"></script>
+
+
+    <!--common script for all pages-->
+    <script src="/assets/js/common-scripts.js"></script>
+
+    <script type="text/javascript" src="/assets/js/gritter/js/jquery.gritter.js"></script>
+    <script type="text/javascript" src="/assets/js/gritter-conf.js"></script>
+
+    <!--script for this page-->
+    <script src="/assets/js/sparkline-chart.js"></script>
+    <script src="/assets/js/zabuto_calendar.js"></script>
+    <script src="/assets/js/chart-master/Chart.js"></script>
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="/assets/js/html5shiv.js"></script>
+    <script src="/assets/js/respond.min.js"></script>
+    <![endif]-->
+    <script>
+        window.addEventListener('touchmove', func, {passive: false})
+    </script>
+    <style>
+        .sidebar-menu a{cursor:pointer}
+    </style>
+</head>
+<body>
+
+<section id="container">
+    <!-- **********************************************************************************************************************************************************
+    TOP BAR CONTENT & NOTIFICATIONS
+    *********************************************************************************************************************************************************** -->
+    <!--header start-->
+    <header class="header black-bg">
+    </header>
+    <script>
+        $('.header').load('/publicHtml/header.html')
+    </script>
+    <!--header end-->
+
+    <!-- **********************************************************************************************************************************************************
+    MAIN SIDEBAR MENU
+    *********************************************************************************************************************************************************** -->
+    <!--sidebar start-->
+    <aside>
+        <div id="sidebar" class="nav-collapse ">
+            <!-- sidebar menu start-->
+            <ul class="sidebar-menu" id="nav-accordion">
+
+                <p class="centered"><a href="/profile.html"><img src="/assets/img/ui-sam.jpg" class="img-circle"
+                                                                   width="60"></a></p>
+                <h5 class="centered"><p th:text="${nickname}"></p></h5>
+
+                <li class="mt">
+                    <a onclick="toNewWindows('../index.html');">
+                        <i class="fa fa-dashboard"></i>
+                        <span>首页</span>
+                    </a>
+                </li>
+
+                <li class="sub-menu">
+                    <a href="javascript:;">
+                        <i class="fa fa-desktop"></i>
+                        <span>UI Elements</span>
+                    </a>
+                    <ul class="sub">
+                        <li><a onclick="toNewWindows('../general.html');">General</a></li>
+                        <li><a onclick="toNewWindows('../buttons.html');">Buttons</a></li>
+                        <li><a href="../panels.html">Panels</a></li>
+                    </ul>
+                </li>
+
+                <li class="sub-menu">
+                    <a href="javascript:;">
+                        <i class="fa fa-cogs"></i>
+                        <span>Components</span>
+                    </a>
+                    <ul class="sub">
+                        <li><a href="../calendar.html">Calendar</a></li>
+                        <li><a href="../gallery.html">Gallery</a></li>
+                        <li><a href="../todo_list.html">Todo List</a></li>
+                    </ul>
+                </li>
+                <li class="sub-menu">
+                    <a href="javascript:;">
+                        <i class="fa fa-book"></i>
+                        <span>Extra Pages</span>
+                    </a>
+                    <ul class="sub">
+                        <li><a href="../blank.html">Blank Page</a></li>
+                        <li><a href="../login.html">Login</a></li>
+                        <li><a href="../lock_screen.html">Lock Screen</a></li>
+                    </ul>
+                </li>
+                <li class="sub-menu">
+                    <a href="javascript:;">
+                        <i class="fa fa-tasks"></i>
+                        <span>Forms</span>
+                    </a>
+                    <ul class="sub">
+                        <li><a href="../templates/form_component.html">Form Components</a></li>
+                    </ul>
+                </li>
+                <li class="sub-menu">
+                    <a href="javascript:;">
+                        <i class="fa fa-th"></i>
+                        <span>用户菜单管理</span>
+                    </a>
+                    <ul class="sub">
+                        <li><a onclick="toNewWindows('../basic_table.html');">用户管理</a></li>
+                        <li><a onclick="toNewWindows('../responsive_table.html');">菜单管理</a></li>
+                    </ul>
+                </li>
+                <li class="sub-menu">
+                    <a href="javascript:;">
+                        <i class=" fa fa-bar-chart-o"></i>
+                        <span>Charts</span>
+                    </a>
+                    <ul class="sub">
+                        <li><a href="../morris.html">Morris</a></li>
+                        <li><a href="../chartjs.html">Chartjs</a></li>
+                    </ul>
+                </li>
+
+            </ul>
+            <!-- sidebar menu end-->
+            <!--<script>-->
+            <!--$('#sidebar').load('/publicHtml/sidebar.html')-->
+            <!--</script>-->
+        </div>
+
+    </aside>
+    <!--sidebar end-->
+
+    <!-- **********************************************************************************************************************************************************
+    MAIN CONTENT
+    *********************************************************************************************************************************************************** -->
+    <!--main content start-->
+    <section id="main-content">
+
+        <script type="text/javascript">
+            $(function(){
+                $('#main-content').load('../index.html')
+            })
+            function toNewWindows(obj){
+                $('#main-content').load(obj);
+            }
+
+        </script>
+    </section><!--&lt;!&ndash; /MAIN CONTENT &ndash;&gt;-->
+
+    <!--main content end-->
+    <!--footer start-->
+    <footer class="site-footer">
+        <script>
+            $('.site-footer').load('/publicHtml/footer.html')
+        </script>
+    </footer>
+
+    <!--footer end-->
+</section>
+
+
+</body>
+</html>
