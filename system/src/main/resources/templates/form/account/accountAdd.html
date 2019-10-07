@@ -1,0 +1,54 @@
+<link href="../../assets/css/bootstrap.css" rel="stylesheet">
+<link href="../../assets/css/style.css" rel="stylesheet">
+<script src="../../assets/js/jquery.js"></script>
+<script src="../../assets/layer/layer.js"></script>
+<div class="form-horizontal" id="editUser"
+     style="align-items: center">
+    <p style="margin: auto 220px;margin-top: 30px;"><strong style="font-size: 20px;">金额:</strong><input type="number" style="width: 350px;height: 30px;" id="money"/></p>
+    <br/>
+    <p style="margin: auto 20px;"><strong style="font-size: 20px;">用途:</strong><textarea style="width: 800px;height: 300px" id="yt"></textarea></p>
+    <br>
+    <div class="form-group">
+        <div class="col-xs-offset-5 col-xs-1">
+            <button class="btn btn-primary" id="save">申请</button>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $("#save").click(function () {
+        var money = $('#money').val();
+        var yt = $('#yt').val();
+        if (money == '' || money == null) {
+            layer.msg('金额不能为空', {
+                icon: 2,
+                time: 2000
+            });
+        } else if (yt == '' || yt == null) {
+            layer.msg('请说明用途', {
+                icon: 2,
+                time: 2000
+            });
+        }else {
+            $.post("/jizhang/insert", {
+                money: money,
+                yt: yt
+            }, function (data) {
+                var index = parent.layer.getFrameIndex(window.name);
+                if (data == 'success') {
+                    layer.msg('申请成功', {
+                        icon: 1,
+                        time: 1000
+                    },function(){
+                        parent.layer.close(index);
+                    });
+                }else{
+                    layer.msg('未知错误', {
+                        icon: 2,
+                        time: 2000
+                    });
+                }
+            });
+        }
+
+    })
+</script>

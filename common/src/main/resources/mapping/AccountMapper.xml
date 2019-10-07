@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hc.common.dao.AccountMapper">
+    <resultMap id="BaseResultMap" type="com.hc.common.pojo.Account">
+        <id column="ID" property="id" jdbcType="INTEGER"/>
+        <result column="applyer" property="applyer" jdbcType="VARCHAR"/>
+        <result column="apply_date" property="applyDate" jdbcType="VARCHAR"/>
+        <result column="money" property="money" jdbcType="DOUBLE"/>
+        <result column="yt" property="yt" jdbcType="VARCHAR"/>
+        <result column="shman" property="shman" jdbcType="VARCHAR"/>
+        <result column="sh_date" property="shDate" jdbcType="VARCHAR"/>
+        <result column="status" property="status" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    ID, applyer, apply_date, money, yt, shman, sh_date, status
+  </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from t_account_b
+        where ID = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_account_b
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+    <insert id="insert" parameterType="com.hc.common.pojo.Account">
+    insert into t_account_b ( applyer, apply_date,
+      money, yt, status)
+    values (#{applyer,jdbcType=VARCHAR}, date_format(now(), '%Y-%c-%d %h:%i:%s'),
+      #{money,jdbcType=DOUBLE}, #{yt,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR})
+  </insert>
+    <insert id="insertSelective" parameterType="com.hc.common.pojo.Account">
+        insert into t_account_b
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                ID,
+            </if>
+            <if test="applyer != null">
+                applyer,
+            </if>
+            <if test="applyDate != null">
+                apply_date,
+            </if>
+            <if test="money != null">
+                money,
+            </if>
+            <if test="yt != null">
+                yt,
+            </if>
+            <if test="shman != null">
+                shman,
+            </if>
+            <if test="shDate != null">
+                sh_date,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="applyer != null">
+                #{applyer,jdbcType=VARCHAR},
+            </if>
+            <if test="applyDate != null">
+                #{applyDate,jdbcType=VARCHAR},
+            </if>
+            <if test="money != null">
+                #{money,jdbcType=DOUBLE},
+            </if>
+            <if test="yt != null">
+                #{yt,jdbcType=VARCHAR},
+            </if>
+            <if test="shman != null">
+                #{shman,jdbcType=VARCHAR},
+            </if>
+            <if test="shDate != null">
+                #{shDate,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.hc.common.pojo.Account">
+        update t_account_b
+        <set>
+            <if test="applyer != null">
+                applyer = #{applyer},
+            </if>
+            <if test="applyDate != null">
+                apply_date = #{applyDate},
+            </if>
+            <if test="money != null">
+                money = #{money,jdbcType=DOUBLE},
+            </if>
+            <if test="yt != null">
+                yt = #{yt},
+            </if>
+            <if test="shman != null">
+                shman = #{shman},
+            </if>
+                sh_date = date_format(now(), '%Y-%c-%d %h:%i:%s'),
+            <if test="status != null">
+                status = #{status},
+            </if>
+        </set>
+        where ID = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.hc.common.pojo.Account">
+    update t_account_b
+    set applyer = #{applyer,jdbcType=VARCHAR},
+      apply_date = #{applyDate,jdbcType=VARCHAR},
+      money = #{money,jdbcType=DOUBLE},
+      yt = #{yt,jdbcType=VARCHAR},
+      shman = #{shman,jdbcType=VARCHAR},
+      sh_date = #{shDate,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+
+    <select id="queryList" resultType="com.hc.common.pojo.Account" parameterType="map">
+        SELECT
+        a.id,
+        b.nickname applyer,
+        a.apply_date as applyDate,
+        a.money,
+        a.yt,
+        c.nickname shman,
+        a.sh_date shDate,
+        a.status
+        FROM
+        t_account_b a
+        left join f_user b on a.applyer = b.id
+        left join f_user c on a.shman = c.id
+        WHERE
+        1=1
+        <if test="key != null and key != ''">
+            AND b.nickname like concat('%', concat(#{title},'%'))
+        </if>
+        <if test="status != null and status != ''">
+            AND a.status = #{status}
+        </if>
+    </select>
+
+    <select id="queryTotal" parameterType="map" resultType="double">
+        select sum(a.money)
+        FROM
+        t_account_b a
+        left join f_user b on a.applyer = b.id
+        left join f_user c on a.shman = c.id
+        WHERE
+        1=1
+        <if test="key != null and key != ''">
+            AND b.nickname like concat('%', concat(#{title},'%'))
+        </if>
+        <if test="status != null and status != ''">
+            AND a.status = #{status}
+        </if>
+    </select>
+</mapper>

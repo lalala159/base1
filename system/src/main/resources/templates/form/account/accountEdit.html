@@ -1,0 +1,100 @@
+<link href="../../assets/css/bootstrap.css" rel="stylesheet">
+<link href="../../assets/css/style.css" rel="stylesheet">
+<script src="../../assets/js/jquery.js"></script>
+<script src="../../assets/layer/layer.js"></script>
+<div class="form-horizontal" id="editUser" style="margin-left: 80px;margin-top: 20px;">
+    <table ><tr>
+        <td> <label style="text-align: right;width: 80px;">申请人：</label><input type="text" name = 'applyer' id="applyer" readonly></td>
+        <td> <label style="text-align: right;width: 80px;">申请日期：</label><input type="text" name="applyDate" id="applyDate" readonly></td>
+    </tr>
+        <tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+        <tr >
+            <td> <label style="text-align: right;width: 80px;">申请金额：</label><input type="text" name="money" id="money" readonly></td>
+            <td> <label style="text-align: right;width: 80px;">审核状态：</label><select name="status" id="status" disabled>
+                <option value="0">被驳回</option>
+                <option value="1">审核中</option>
+                <option value="2">已通过</option>
+            </select></td>
+        </tr>
+        <tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+        <tr>
+            <td> <label style="text-align: right;width: 80px;">审核人：</label><input type="text" name = 'shman' id="shman" readonly></td>
+            <td> <label style="text-align: right;width: 80px;">审核日期：</label><input type="text" name="shDate" id="shDate" readonly></td>
+        </tr>
+        <tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+        <tr>
+            <td rowspan="3" colspan="4"><label style="text-align: right;width: 80px;">用途：</label><textarea name="yt" id="yt" readonly style="width: 100%;height: 100px;"></textarea></td>
+        </tr>
+    </table>
+    <br>
+    <div class="form-group status12">
+        <div class="col-xs-offset-3 col-xs-1">
+            <button class="btn btn-primary" onclick="apply('2')">通过</button>
+        </div>
+        <div class="col-xs-offset-3 col-xs-1">
+            <button class="btn btn-primary" onclick="apply('0')">驳回</button>
+        </div>
+    </div>
+    <div class="form-group status0">
+        <div class="col-xs-offset-4 col-xs-1">
+            <button class="btn btn-primary" onclick="apply('1')">提交</button>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(function () {
+        var data = parent.data;
+        $("input[name='applyer']").val('');
+        $("input[name='applyDate']").val('');
+        $("input[name='money']").val('');
+        $("#yt").val('');
+        $("input[name='shman']").val('');
+        $("input[name='shDate']").val('');
+        $("#status").val('');
+
+        $("input[name='applyer']").val(data.applyer);
+        $("input[name='applyDate']").val(data.applyDate);
+        $("input[name='money']").val(data.money);
+        $("#yt").val(data.yt);
+        $("input[name='shman']").val(data.shman);
+        $("#status").val(data.status);
+        $("input[name='shDate']").val(data.shDate);
+
+        if(data.status==0){
+            $(".status0").css('display','block');
+            $(".status12").css('display', 'none');
+            $("#money").removeAttr("readonly");
+            $("#yt").removeAttr("readonly");
+        }else if(data.status==1){
+            $('input').attr("readonly",true);
+            $(".status12").css('display', 'block');
+            $(".status0").css('display', 'none');
+        }else{
+            $('input').attr("readonly",true);
+            $(".status12").css('display', 'none');
+            $(".status0").css('display', 'none');
+        }
+    })
+    function apply(obj) {
+            $.post("/jizhang/edit", {
+                status : obj,
+                id : parent.data.id,
+                yt : $("#yt").val()
+            }, function (data) {
+                var index = parent.layer.getFrameIndex(window.name);
+                if (data == 'success') {
+                    layer.msg('提交成功', {
+                        icon: 1,
+                        time: 1000
+                    },function(){
+                        parent.layer.close(index);
+                    });
+                }else{
+                    layer.msg('未知错误', {
+                        icon: 2,
+                        time: 1000
+                    });
+                }
+            });
+        }
+</script>

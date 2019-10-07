@@ -1,10 +1,10 @@
-package com.hc.system.controller.notice;
+package com.hc.system.controller.jizhang;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.hc.common.pojo.Notice;
+import com.hc.common.pojo.Account;
 import com.hc.common.pojo.User;
-import com.hc.common.service.NoticeService;
+import com.hc.common.service.AccountService;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,20 +14,20 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.UUID;
 
-@RequestMapping(value = "notice")
+@RequestMapping(value = "jizhang")
 @Controller
-public class NoticeController {
+public class AccountController {
     @Autowired
-    private NoticeService service;
+    private AccountService service;
 
     @RequestMapping(value = "queryList")
     @ResponseBody
-    public PageInfo<Notice> queryList(Integer pageNum, Integer pageSize,
-                                      String orderBy, String key) {
-        Map<String, Object> map = new HashMap<>(16);
+    public PageInfo<Account> queryList(Integer pageNum, Integer pageSize,
+                                       String orderBy, String key, String status) {
+        Map<String, String> map = new HashMap<>(16);
         map.put("key", key);
+        map.put("status", status);
         if (StringUtils.isNotEmpty(orderBy)) {
             PageHelper.startPage(pageNum, pageSize, orderBy);
         } else {
@@ -38,12 +38,12 @@ public class NoticeController {
 
     @RequestMapping(value = "insert")
     @ResponseBody
-    public String insert(Notice notice) {
+    public String insert(Account account) {
         User user= (User) SecurityUtils.getSubject().getSession().getAttribute("user");
         try {
-            notice.setId(UUID.randomUUID().toString());
-            notice.setUserId(user.getAccount());
-            int flag = service.insert(notice);
+            account.setApplyer(user.getId().toString());
+            account.setStatus("1");
+            int flag = service.insert(account);
             System.out.println(flag);
         }catch (Exception e){
             return "fail";
@@ -51,17 +51,12 @@ public class NoticeController {
         return "success";
     }
 
-    @RequestMapping(value = "delete")
-    @ResponseBody
-    public String delete(String id) {
-        service.deleteByPrimaryKey(id);
-        return "success";
-    }
-
     @RequestMapping(value = "edit")
     @ResponseBody
-    public String edit(Notice notice) {
-        service.updateByPrimaryKeySelective(notice);
+    public String edit(Account account) {
+        User user= (User) SecurityUtils.getSubject().getSession().getAttribute("user");
+        account.setShman(user.getId().toString());
+        service.updateByPrimaryKeySelective(account);
         return "success";
     }
 }
