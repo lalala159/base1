@@ -45,8 +45,8 @@
                     '                                <td><span class="label label-warning label-mini">' + val.phone + '</span></td>' +
                     '                                <td>' +
                     '                                    <button class="btn btn-success btn-xs" onclick="editStatus('+val.status+', '+val.id+')"><i class="fa '+(val.status == 0?'fa-check':'fa-ban')+'" title="'+(val.status == 0?'启用':'禁用')+'"></i></button>' +
-                    '                                    <button class="btn btn-primary btn-xs" onclick="edit(\''+val.nickname+'\',\''+val.account+'\', \''+val.sex+'\', \''+val.phone+'\', \''+val.id+'\')"><i class="fa fa-pencil"></i></button>' +
-                    '                                    <button class="btn btn-danger btn-xs" onclick="delete1('+val.id+')"><i class="fa fa-trash-o "></i></button>' +
+                    '                                    <button class="btn btn-primary btn-xs" onclick="edit(\''+val.nickname+'\',\''+val.account+'\', \''+val.sex+'\', \''+val.phone+'\', \''+val.id+'\')" title="编辑"><i class="fa fa-pencil"></i></button>' +
+                    '                                    <button class="btn btn-danger btn-xs" onclick="delete1('+val.id+')"><i class="fa fa-trash-o " title="删除"></i></button>' +
                     '                                </td>' +
                     '                            </tr>'
             });

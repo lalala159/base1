@@ -77,9 +77,8 @@ public class ShiroConfiguration {
         filterChainDefinitionManager.put("/sys/login", "anon");//anon 可以理解为不拦截
         /*filterChainDefinitionManager.put("/ajaxLogin", "anon");//anon 可以理解为不拦截*/
         filterChainDefinitionManager.put("/assets/**",  "anon");//静态资源不拦截
-        filterChainDefinitionManager.put("/sys/goUser",  "anon");
-        shiroFilterFactoryBean.setLoginUrl("/sys/login");
-        shiroFilterFactoryBean.setUnauthorizedUrl("/sys/queryList");
+        filterChainDefinitionManager.put("/pc/main",  "anon");
+        shiroFilterFactoryBean.setLoginUrl("/pc/main");
         shiroFilterFactoryBean.setUnauthorizedUrl("/403");
         filterChainDefinitionManager.put("/**",  "authc");//其他资源全部拦截
 
