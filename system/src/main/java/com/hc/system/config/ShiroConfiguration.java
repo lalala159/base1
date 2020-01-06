@@ -75,8 +75,10 @@ public class ShiroConfiguration {
         filterChainDefinitionManager.put("/shop/**", "authc,roles[shop]");
         filterChainDefinitionManager.put("/admin/**", "authc,roles[admin]");*/
         filterChainDefinitionManager.put("/sys/login", "anon");//anon 可以理解为不拦截
+        filterChainDefinitionManager.put("/pc/qjzs", "anon");//anon 可以理解为不拦截
         /*filterChainDefinitionManager.put("/ajaxLogin", "anon");//anon 可以理解为不拦截*/
         filterChainDefinitionManager.put("/assets/**",  "anon");//静态资源不拦截
+        filterChainDefinitionManager.put("/swwagger-ui.html/**",  "anon");//静态资源不拦截
         filterChainDefinitionManager.put("/pc/main",  "anon");
         shiroFilterFactoryBean.setLoginUrl("/pc/main");
         shiroFilterFactoryBean.setUnauthorizedUrl("/403");

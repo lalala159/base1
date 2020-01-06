@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hc.common.dao.LogsInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.hc.common.pojo.LogsInfo" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="userName" property="username" jdbcType="VARCHAR" />
+    <result column="module" property="module" jdbcType="VARCHAR" />
+    <result column="op" property="op" jdbcType="VARCHAR" />
+    <result column="ddate" property="ddate" jdbcType="DATE" />
+    <result column="ip" property="ip" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, userName, module, op, ddate, ip
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_logs_info_b
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_logs_info_b
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.hc.common.pojo.LogsInfo" >
+    insert into t_logs_info_b (ID, userName, module, 
+      op, ddate, ip)
+    values (#{id,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{module,jdbcType=VARCHAR}, 
+      #{op,jdbcType=VARCHAR}, #{ddate,jdbcType=DATE}, #{ip,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hc.common.pojo.LogsInfo" >
+    insert into t_logs_info_b
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="username != null" >
+        userName,
+      </if>
+      <if test="module != null" >
+        module,
+      </if>
+      <if test="op != null" >
+        op,
+      </if>
+      <if test="ddate != null" >
+        ddate,
+      </if>
+      <if test="ip != null" >
+        ip,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="username != null" >
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="module != null" >
+        #{module,jdbcType=VARCHAR},
+      </if>
+      <if test="op != null" >
+        #{op,jdbcType=VARCHAR},
+      </if>
+      <if test="ddate != null" >
+        #{ddate,jdbcType=DATE},
+      </if>
+      <if test="ip != null" >
+        #{ip,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hc.common.pojo.LogsInfo" >
+    update t_logs_info_b
+    <set >
+      <if test="username != null" >
+        userName = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="module != null" >
+        module = #{module,jdbcType=VARCHAR},
+      </if>
+      <if test="op != null" >
+        op = #{op,jdbcType=VARCHAR},
+      </if>
+      <if test="ddate != null" >
+        ddate = #{ddate,jdbcType=DATE},
+      </if>
+      <if test="ip != null" >
+        ip = #{ip,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hc.common.pojo.LogsInfo" >
+    update t_logs_info_b
+    set userName = #{username,jdbcType=VARCHAR},
+      module = #{module,jdbcType=VARCHAR},
+      op = #{op,jdbcType=VARCHAR},
+      ddate = #{ddate,jdbcType=DATE},
+      ip = #{ip,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="queryByKey" resultType="int" parameterType="java.lang.String">
+    select count(1) from t_logs_info_b where module = '登录'
+    <if test="ddate!= null and ddate != ''">
+      and date_format(ddate,'%Y-%m-%d') = #{ddate}
+    </if>
+  </select>
+</mapper>

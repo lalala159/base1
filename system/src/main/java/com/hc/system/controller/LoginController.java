@@ -1,8 +1,11 @@
 package com.hc.system.controller;
 
 import com.hc.common.config.ResposeEntity;
+import com.hc.common.pojo.LogsInfo;
 import com.hc.common.pojo.User;
+import com.hc.common.service.LogsInfoService;
 import com.hc.common.service.UserService;
+import com.hc.system.util.CusAccessObjectUtil;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.DisabledAccountException;
@@ -18,12 +21,16 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
 
 @Controller
 @RequestMapping("sys")
 public class LoginController {
     @Autowired
-    UserService service;
+    private UserService service;
+
+    @Autowired
+    private LogsInfoService logsInfoService;
 
 
     @RequestMapping(value = "login")
@@ -57,7 +64,15 @@ public class LoginController {
         }
         Session session = SecurityUtils.getSubject().getSession();
         User user = (User) session.getAttribute("user");
+        String ip = CusAccessObjectUtil.getIpAddress(request);
         String nickname = user.getNickname();
+        LogsInfo logsInfo = new LogsInfo();
+        logsInfo.setDdate(new Date());
+        logsInfo.setIp(ip);
+        logsInfo.setModule("登录");
+        logsInfo.setOp("登录");
+        logsInfo.setUsername(user.getNickname());
+        logsInfoService.insertSelective(logsInfo);
         model.addObject("nickname", nickname);
         model.setViewName("publicHtml/main");
         return model;

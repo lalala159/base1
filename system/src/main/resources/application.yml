@@ -47,7 +47,8 @@ agehelper:
   reasonable: true
   supportMethodsArguments: true
   params: count=countSql
-
+swagger:
+  enable: true
 logging:
   level:
     com.hc.common.dao: DEBUG
