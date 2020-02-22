@@ -1,5 +1,7 @@
 package com.hc.system.controller;
 
+import com.hc.common.pojo.Notice;
+import com.hc.common.pojo.User;
 import com.hc.common.service.LogsInfoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -13,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -24,22 +27,28 @@ public class main {
 
 
     @GetMapping("/main")
-    public ModelAndView test(){
+    public ModelAndView test() {
         return new ModelAndView("indexmain");
     }
 
 
     @GetMapping("/qjzs")
     @ResponseBody
-    @ApiOperation(value="日志浏览")
-    public Map<String, Object> qjzs(){
-       Map<String, Object> map = new HashMap<>(4);
-       SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-       String ddate = sdf.format(new Date());
-       int lls = logsInfoService.queryByKey(ddate);
-       int zls = logsInfoService.queryByKey(null);
-       map.put("lls", lls);
-       map.put("zls", zls);
-       return map;
+    @ApiOperation(value = "日志浏览")
+    public Map<String, Object> qjzs() {
+        Map<String, Object> map = new HashMap<>(4);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String ddate = sdf.format(new Date());
+        int lls = logsInfoService.queryByKey(ddate);
+        int zls = logsInfoService.queryByKey(null);
+        int users = logsInfoService.queryUsers();
+        List<Notice> noticeList = logsInfoService.getNotice();
+        List<User> userList = logsInfoService.getUsers();
+        map.put("lls", lls);
+        map.put("zls", zls);
+        map.put("users", users);
+        map.put("noticeList", noticeList);
+        map.put("userList", userList);
+        return map;
     }
 }

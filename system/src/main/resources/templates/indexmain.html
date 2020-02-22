@@ -82,28 +82,28 @@
                 <div class="col-md-2 col-sm-2 col-md-offset-1 box0">
                     <div class="box1">
                         <span class="fa fa-users" title="社团成员数"></span>
-                        <h3>13</h3>
+                        <h3 id="users">0</h3>
                     </div>
                     <!--<p>933 People liked your page the last 24hs. Whoohoo!</p>-->
                 </div>
                 <div class="col-md-3 col-sm-3 box0">
                     <div class="box1">
                         <span class="fa fa-eye" title="当日浏览量"></span>
-                        <h3>+48</h3>
+                        <h3 id="lls">0</h3>
                     </div>
                     <!--<p>48 New files were added in your cloud storage.</p>-->
                 </div>
                 <div class="col-md-3 col-sm-3 box0">
                     <div class="box1">
                         <span class="fa fa-eye" title="总浏览量"></span>
-                        <h3>1000</h3>
+                        <h3 id="zls">0</h3>
                     </div>
                     <!--<p>You have 33 unread messages in your inbox.</p>-->
                 </div>
                 <div class="col-md-2 col-sm-2 box0">
                     <div class="box1">
                         <span class="fa fa-download" title="文件下载数量"></span>
-                        <h3>+10</h3>
+                        <h3>0</h3>
                     </div>
                     <!--<p>More than 10 news were added in your reader.</p>-->
                 </div>
@@ -306,120 +306,12 @@
         <div class="col-lg-3 ds">
             <!--COMPLETED ACTIONS DONUTS CHART-->
             <h3>通知公告</h3>
-
-            <!-- First Action -->
-            <div class="desc">
-                <div class="thumb">
-                    <span class="badge bg-theme"><i class="fa fa-clock-o"></i></span>
-                </div>
-                <div class="details">
-                    <p><muted>2 Minutes Ago</muted><br/>
-                        <a href="#">James Brown</a> subscribed to your newsletter.<br/>
-                    </p>
-                </div>
-            </div>
-            <!-- Second Action -->
-            <div class="desc">
-                <div class="thumb">
-                    <span class="badge bg-theme"><i class="fa fa-clock-o"></i></span>
-                </div>
-                <div class="details">
-                    <p><muted>3 Hours Ago</muted><br/>
-                        <a href="#">Diana Kennedy</a> purchased a year subscription.<br/>
-                    </p>
-                </div>
-            </div>
-            <!-- Third Action -->
-            <div class="desc">
-                <div class="thumb">
-                    <span class="badge bg-theme"><i class="fa fa-clock-o"></i></span>
-                </div>
-                <div class="details">
-                    <p><muted>7 Hours Ago</muted><br/>
-                        <a href="#">Brandon Page</a> purchased a year subscription.<br/>
-                    </p>
-                </div>
-            </div>
-            <!-- Fourth Action -->
-            <div class="desc">
-                <div class="thumb">
-                    <span class="badge bg-theme"><i class="fa fa-clock-o"></i></span>
-                </div>
-                <div class="details">
-                    <p><muted>11 Hours Ago</muted><br/>
-                        <a href="#">Mark Twain</a> commented your post.<br/>
-                    </p>
-                </div>
-            </div>
-            <!-- Fifth Action -->
-            <div class="desc">
-                <div class="thumb">
-                    <span class="badge bg-theme"><i class="fa fa-clock-o"></i></span>
-                </div>
-                <div class="details">
-                    <p><muted>18 Hours Ago</muted><br/>
-                        <a href="#">Daniel Pratt</a> purchased a wallet in your store.<br/>
-                    </p>
-                </div>
+            <div id="noticesMain">
             </div>
 
             <!-- USERS ONLINE SECTION -->
             <h3>社团成员</h3>
-            <!-- First Member -->
-            <div class="desc">
-                <div class="thumb">
-                    <img class="img-circle" src="/assets/img/ui-sam.jpg" width="35px" height="35px" align="">
-                </div>
-                <div class="details">
-                    <p><a href="#">曾思宇</a><br/>
-                        <muted>Available</muted>
-                    </p>
-                </div>
-            </div>
-            <!-- Second Member -->
-            <div class="desc">
-                <div class="thumb">
-                    <img class="img-circle" src="/assets/img/ui-sam.jpg" width="35px" height="35px" align="">
-                </div>
-                <div class="details">
-                    <p><a href="#">DJ SHERMAN</a><br/>
-                        <muted>I am Busy</muted>
-                    </p>
-                </div>
-            </div>
-            <!-- Third Member -->
-            <div class="desc">
-                <div class="thumb">
-                    <img class="img-circle" src="/assets/img/ui-sam.jpg" width="35px" height="35px" align="">
-                </div>
-                <div class="details">
-                    <p><a href="#">DAN ROGERS</a><br/>
-                        <muted>Available</muted>
-                    </p>
-                </div>
-            </div>
-            <!-- Fourth Member -->
-            <div class="desc">
-                <div class="thumb">
-                    <img class="img-circle" src="/assets/img/ui-sam.jpg" width="35px" height="35px" align="">
-                </div>
-                <div class="details">
-                    <p><a href="#">Zac Sniders</a><br/>
-                        <muted>Available</muted>
-                    </p>
-                </div>
-            </div>
-            <!-- Fifth Member -->
-            <div class="desc">
-                <div class="thumb">
-                    <img class="img-circle" src="/assets/img/ui-sam.jpg" width="35px" height="35px" align="">
-                </div>
-                <div class="details">
-                    <p><a href="#">Marcel Newman</a><br/>
-                        <muted>Available</muted>
-                    </p>
-                </div>
-            </div>
+            <div id="usersMain"></div>
 
             <!-- CALENDAR-->
             <div id="calendar" class="mb">
@@ -447,7 +339,55 @@
 
 <!--footer end-->
 </section>
+<style type="text/css">
+    .desc{
+        width:100%;
+        word-break:keep-all;/* 不换行 */
+        white-space:nowrap;/* 不换行 */
+        overflow:hidden;/* 内容超出宽度时隐藏超出部分的内容 */
+        text-overflow:ellipsis;/* 当对象内文本溢出时显示省略标记(...) ；需与overflow:hidden;一起使用。*/
+    }
+</style>
+<script type="text/javascript">
+    $(function(){
+        $.get("/pc/qjzs", '', function (data) {
+            $('#users').text(data.users);
+            $('#lls').text(data.lls);
+            $('#zls').text(data.zls);
+            $('#noticesMain').empty();
+            var str = '';
+            $.each(data.noticeList, function (n, val) {
+                str += "<div class=\"desc\" style='height: 80px;'>\n" +
+                    "                      \t<div class=\"thumb\">\n" +
+                    "                      \t\t<span class=\"badge bg-theme\"><i class=\"fa fa-clock-o\"></i></span>\n" +
+                    "                      \t</div>\n" +
+                    "                      \t<div class=\"details\" >\n" +
+                    "                      \t\t<p style='float: left;' title='"+val.content+"'><muted>"+val.sendDate+"</muted><br/>\n" +
+                    "                      \t\t   <a href=\"#\">"+val.title+":</a> "+val.content+"<br/>\n" +
+                    "                      \t\t</p>\n" +
+                    "                      \t</div>\n" +
+                    "                      </div>";
+            });
+            $('#noticesMain').append(str);
 
+            $('#usersMain').empty();
+            var strUser = '';
+            $.each(data.userList, function (n, val) {
+                strUser += "<div class=\"desc\">\n" +
+                    "                    <div class=\"thumb\">\n" +
+                    "                    <img class=\"img-circle\" src=\"/assets/img/ui-sam.jpg\" width=\"35px\" height=\"35px\" align=\"\">\n" +
+                    "                    </div>\n" +
+                    "                    <div class=\"details\">\n" +
+                    "                    <p><a href=\"#\">"+val.nickname+"</a><br/>\n" +
+                    "                    <muted>"+val.phone+"</muted>\n" +
+                    "                    </p>\n" +
+                    "                    </div>\n" +
+                    "                    </div>";
+            });
+            $('#usersMain').append(strUser);
+        });
+    })
+</script>
 
 </body>
 </html>
