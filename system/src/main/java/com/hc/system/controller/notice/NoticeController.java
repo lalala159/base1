@@ -12,6 +12,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -39,13 +41,14 @@ public class NoticeController {
     @RequestMapping(value = "insert")
     @ResponseBody
     public String insert(Notice notice) {
-        User user= (User) SecurityUtils.getSubject().getSession().getAttribute("user");
+        User user = (User) SecurityUtils.getSubject().getSession().getAttribute("user");
         try {
             notice.setId(UUID.randomUUID().toString());
             notice.setUserId(user.getAccount());
-            int flag = service.insert(notice);
-            System.out.println(flag);
-        }catch (Exception e){
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            notice.setSendDate(sdf.format(new Date()));
+            service.insert(notice);
+        } catch (Exception e) {
             return "fail";
         }
         return "success";

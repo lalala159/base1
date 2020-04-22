@@ -25,7 +25,7 @@
     insert into t_notice_b (id, title, content, 
       send_date, user_id)
     values (#{id,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, 
-      date_format(now(), '%Y-%c-%d %h:%i:%s'), #{userId,jdbcType=VARCHAR})
+      #{sendDate,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.hc.common.pojo.Notice" >
     insert into t_notice_b
@@ -105,6 +105,7 @@
     <if test="key != null and key != ''">
        AND title like concat('%', concat(#{title},'%'))
     </if>
+    order by sendDate desc
   </select>
 
 </mapper>
