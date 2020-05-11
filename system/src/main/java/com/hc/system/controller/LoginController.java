@@ -89,6 +89,4 @@ public class LoginController {
                                    String orderBy, String key) {
         return service.queryList(pageNum, pageSize, orderBy, key);
     }
-
-
 }
