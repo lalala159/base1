@@ -12,36 +12,36 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 /**
  * @Author HC
  * @Date 2020/5/11 15:07
  * @Version 1.0
  */
-@Controller
-@RequestMapping(value = "articel")
+@RestController
+@RequestMapping(value = "article")
 public class ArticelController {
     @Autowired
     private ArticelInfoService articelInfoService;
 
     @RequestMapping(value = "queryList")
     @ResponseBody
-    public PageInfo<Notice> queryList(Integer pageNum, Integer pageSize,
+    public PageInfo<ArticelInfoWithBLOBs> queryList(Integer pageNum, Integer pageSize,
                                       String orderBy, String key) {
-        Map<String, Object> map = new HashMap<>(16);
-        map.put("key", key);
         if (StringUtils.isNotEmpty(orderBy)) {
             PageHelper.startPage(pageNum, pageSize, orderBy);
         } else {
             PageHelper.startPage(pageNum, pageSize);
         }
-        return null;
+        List<ArticelInfoWithBLOBs> list = articelInfoService.queryList(key);
+        PageInfo<ArticelInfoWithBLOBs> pageInfo = new PageInfo<>(list);
+        return pageInfo;
     }
 
     @RequestMapping(value = "insert")

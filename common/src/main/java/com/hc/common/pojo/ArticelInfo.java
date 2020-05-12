@@ -1,5 +1,6 @@
 package com.hc.common.pojo;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class ArticelInfo {

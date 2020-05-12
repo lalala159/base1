@@ -21,7 +21,7 @@
                     <thead>
                     <tr>
                         <th style="width: 150px;"><i class="fa fa-tag"></i> 标题</th>
-                        <th style="width: 400px;"><i class="fa fa-facebook"></i> 文章介绍</th>
+                        <th style="width: 400px;"><i class="fa fa-facebook"></i> 内容</th>
                         <th style="width: 150px;"><i class="fa fa-facebook-square"></i> 发布日期</th>
                         <th style="width: 150px;"><i class="fa fa-user"></i> 发布人</th>
                         <th style="width: 150px;"><i class="fa fa-edit"></i> 操作</th>
@@ -43,20 +43,20 @@
     })
     function initData(n, pageSize) {
         $("#tbody").empty();
-        $.get("/notice/queryList", {'pageNum': n, 'pageSize': pageSize}, function (data) {
+        $.get("/article/queryList", {'pageNum': n, 'pageSize': pageSize}, function (data) {
             initPage(n, pageSize, data.total);
             var str = '';
             var list = data.list;
             $.each(list, function (n, val) {
                 str += '<tr>' +
-                    '                                <td title=\'' + val.title + '\'>' +
-                    '                                        ' + val.title + '' +
+                    '                                <td title=\'' + val.present + '\'>' +
+                    '                                        ' + val.present + '' +
                     '                                </td>' +
                     '                                <td class="hidden-phone"><span title=\'' + val.content + '\'>' + val.content + '</span></td>' +
-                    '                                <td>' + val.sendDate  + '</td>' +
+                    '                                <td>' + val.dataStr  + '</td>' +
                     '                                <td><span class="label label-warning label-mini">' + val.userId + '</span></td>' +
                     '                                <td>' +
-                    '                                    <button class="btn btn-primary btn-xs" onclick="edit(\''+val.title+'\',\''+val.content+'\', \''+val.id+'\')"><i class="fa fa-pencil"></i></button>' +
+                    '                                    <button class="btn btn-primary btn-xs" onclick="edit(\''+val.present+'\',\''+val.content+'\', \''+val.id+'\')"><i class="fa fa-pencil"></i></button>' +
                     '                                    <button class="btn btn-danger btn-xs" onclick="delete1(\''+val.id+'\')"><i class="fa fa-trash-o "></i></button>' +
                     '                                </td>' +
                     '                            </tr>'
@@ -68,7 +68,7 @@
         layer.confirm('确定删除？', {
             btn: ['确定','取消']
         }, function(){
-            $.post("/notice/delete", {'id': id}, function (data) {
+            $.post("/article/delete", {'id': id}, function (data) {
                 if(data == 'success'){
                     layer.msg(
                         '删除成功',{
@@ -83,9 +83,9 @@
             layer.closeAll('dialog');
         });
     }
-    function edit(title, content, id){
+    function edit(present, content, id){
         data = {
-            title : title,
+            present : present,
             content : content,
             id : id
         }
@@ -95,7 +95,7 @@
             area:['850px','600px'], //弹出层宽高
             scrollbar: false,
             title:'信息修改',//弹出层标题
-            content: ['/form/notice/noticeEdit.html','no'],
+            content: ['/form/article/articleEdit.html','no'],
             end:function(){
                 initData(1, 15);
             }
@@ -108,7 +108,7 @@
             area:['850px','600px'], //弹出层宽高
             scrollbar: false,
             title:'新增',//弹出层标题
-            content: ['/form/notice/noticeAdd.html','no'],
+            content: ['/form/article/articleAdd.html','no'],
             end:function(){
                 initData(1, 15);
             }

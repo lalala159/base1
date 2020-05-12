@@ -5,6 +5,16 @@ public class ArticelInfoWithBLOBs extends ArticelInfo {
 
     private String content;
 
+    private String dataStr;
+
+    public String getDataStr() {
+        return dataStr;
+    }
+
+    public void setDataStr(String dataStr) {
+        this.dataStr = dataStr;
+    }
+
     public String getPresent() {
         return present;
     }

@@ -7,6 +7,8 @@ import com.hc.common.service.ArticelInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * @Author HC
  * @Date 2020/5/11 15:20
@@ -51,5 +53,10 @@ public class ArticelInfoServiceImpl implements ArticelInfoService {
     @Override
     public int updateByPrimaryKey(ArticelInfo record) {
         return articelInfoMapper.updateByPrimaryKey(record);
+    }
+
+    @Override
+    public List<ArticelInfoWithBLOBs> queryList(String present) {
+        return articelInfoMapper.queryList(present);
     }
 }

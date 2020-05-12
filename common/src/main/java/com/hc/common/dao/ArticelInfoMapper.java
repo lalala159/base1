@@ -3,6 +3,8 @@ package com.hc.common.dao;
 import com.hc.common.pojo.ArticelInfo;
 import com.hc.common.pojo.ArticelInfoWithBLOBs;
 
+import java.util.List;
+
 public interface ArticelInfoMapper {
     int deleteByPrimaryKey(Integer id);
 
@@ -17,4 +19,6 @@ public interface ArticelInfoMapper {
     int updateByPrimaryKeyWithBLOBs(ArticelInfoWithBLOBs record);
 
     int updateByPrimaryKey(ArticelInfo record);
+
+    List<ArticelInfoWithBLOBs> queryList(String present);
 }

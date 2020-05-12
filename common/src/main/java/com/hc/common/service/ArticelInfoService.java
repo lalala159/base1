@@ -3,6 +3,8 @@ package com.hc.common.service;
 import com.hc.common.pojo.ArticelInfo;
 import com.hc.common.pojo.ArticelInfoWithBLOBs;
 
+import java.util.List;
+
 /**
  * @Author HC
  * @Date 2020/5/11 15:19
@@ -22,4 +24,6 @@ public interface ArticelInfoService {
     int updateByPrimaryKeyWithBLOBs(ArticelInfoWithBLOBs record);
 
     int updateByPrimaryKey(ArticelInfo record);
+
+    List<ArticelInfoWithBLOBs> queryList(String present);
 }
