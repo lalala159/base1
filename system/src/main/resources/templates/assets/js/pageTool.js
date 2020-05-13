@@ -1,6 +1,3 @@
-$(function() {
-    initData(1,15);
-});
 //生成分页
 //有些参数是可选的，比如lang，若不传有默认值
 function initPage(pageNo, pageSize, totalRecords){

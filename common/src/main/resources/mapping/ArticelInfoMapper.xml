@@ -5,13 +5,14 @@
         <id column="id" property="id" jdbcType="INTEGER"/>
         <result column="data_date" property="dataDate" jdbcType="TIMESTAMP"/>
         <result column="user_id" property="userId" jdbcType="VARCHAR"/>
+        <result column="title" property="title" jdbcType="VARCHAR"/>
     </resultMap>
     <resultMap id="ResultMapWithBLOBs" type="com.hc.common.pojo.ArticelInfoWithBLOBs" extends="BaseResultMap">
         <result column="present" property="present" jdbcType="LONGVARCHAR"/>
         <result column="content" property="content" jdbcType="LONGVARCHAR"/>
     </resultMap>
     <sql id="Base_Column_List">
-    id, data_date, user_id
+    id, data_date, user_id, title
   </sql>
     <sql id="Blob_Column_List">
     present, content
@@ -29,9 +30,9 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
     <insert id="insert" parameterType="com.hc.common.pojo.ArticelInfoWithBLOBs">
-    insert into t_articel_info_b (id, data_date, user_id, 
+    insert into t_articel_info_b (id, data_date, user_id, title,
       present, content)
-    values (#{id,jdbcType=INTEGER}, #{dataDate,jdbcType=TIMESTAMP}, #{userId,jdbcType=INTEGER}, 
+    values (#{id,jdbcType=INTEGER}, #{dataDate,jdbcType=TIMESTAMP}, #{userId,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR},
       #{present,jdbcType=LONGVARCHAR}, #{content,jdbcType=LONGVARCHAR})
   </insert>
     <insert id="insertSelective" parameterType="com.hc.common.pojo.ArticelInfoWithBLOBs">
@@ -78,7 +79,7 @@
                 data_date = #{dataDate,jdbcType=TIMESTAMP},
             </if>
             <if test="userId != null">
-                user_id = #{userId,jdbcType=INTEGER},
+                user_id = #{userId,jdbcType=VARCHAR},
             </if>
             <if test="present != null">
                 present = #{present,jdbcType=LONGVARCHAR},
@@ -86,13 +87,17 @@
             <if test="content != null">
                 content = #{content,jdbcType=LONGVARCHAR},
             </if>
+            <if test="title != null">
+                title = #{title,jdbcType=VARCHAR},
+            </if>
         </set>
         where id = #{id,jdbcType=INTEGER}
     </update>
     <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.hc.common.pojo.ArticelInfoWithBLOBs">
     update t_articel_info_b
     set data_date = #{dataDate,jdbcType=TIMESTAMP},
-      user_id = #{userId,jdbcType=INTEGER},
+      user_id = #{userId,jdbcType=VARCHAR},
+       title = #{title,jdbcType=VARCHAR},
       present = #{present,jdbcType=LONGVARCHAR},
       content = #{content,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=INTEGER}
@@ -106,13 +111,13 @@
 
     <select id="queryList" resultType="com.hc.common.pojo.ArticelInfoWithBLOBs">
         select
-        a.id,a.present,a.content,a.data_date dataStr,b.nickname userId
+        a.id,a.present,a.title,a.content,a.data_date dataStr,b.nickname userId
         from t_articel_info_b a
         inner join f_user b on a.user_id = b.account
         where 1=1
         <if test="present!=null and present!=''">
           and present like concat('%', #{present},'%')
         </if>
-
+        order by a.id desc
     </select>
 </mapper>

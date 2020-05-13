@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="Dashboard">
+    <meta name="keyword" content="Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
+
+    <title>医学学联社</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="/assets/css/bootstrap.css" rel="stylesheet">
+    <!--external css-->
+    <link href="/assets/font-awesome/css/font-awesome.css" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="/assets/css/zabuto_calendar.css">
+    <link rel="stylesheet" type="text/css" href="/assets/js/gritter/css/jquery.gritter.css"/>
+    <link rel="stylesheet" type="text/css" href="/assets/lineicons/style.css">
+    <!-- Custom styles for this template -->
+    <link href="/assets/css/style.css" rel="stylesheet">
+    <link href="/assets/css/style-responsive.css" rel="stylesheet">
+    <script src="/assets/js/jquery.js"></script>
+    <script src="/assets/js/jquery-1.8.3.min.js"></script>
+    <script src="/assets/js/bootstrap.min.js"></script>
+    <script class="include" type="text/javascript" src="/assets/js/jquery.dcjqaccordion.2.7.js"></script>
+    <script src="/assets/js/jquery.scrollTo.min.js"></script>
+    <script src="/assets/js/jquery.nicescroll.js" type="text/javascript"></script>
+    <script src="/assets/js/jquery.sparkline.js"></script>
+    <script src="/assets/layer/layer.js"></script>
+
+
+    <!--common script for all pages-->
+    <script src="/assets/js/common-scripts.js"></script>
+
+    <script type="text/javascript" src="/assets/js/gritter/js/jquery.gritter.js"></script>
+    <script type="text/javascript" src="/assets/js/gritter-conf.js"></script>
+
+    <!--script for this page-->
+    <script src="/assets/js/sparkline-chart.js"></script>
+    <script src="/assets/js/zabuto_calendar.js"></script>
+    <script src="/assets/js/chart-master/Chart.js"></script>
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="/assets/js/html5shiv.js"></script>
+    <script src="/assets/js/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+<section>
+    <input th:value="${id}" id = "id" type="hidden">
+    <div style="font-size: 20px;margin: 100px auto;text-align: center;"><strong id="title"></strong></div>
+    <hr/>
+    <div id="article" style="font-size: 14px;text-align: center;"></div>
+</section>
+</body>
+<script type="text/javascript">
+    $.get("/article/getArticle", {id: $('#id').val()}, function (data) {
+        $('#title').html(data.data.title);
+        $('#article').html(data.data.content);
+    })
+</script>
+</html>

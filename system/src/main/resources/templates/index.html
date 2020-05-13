@@ -182,59 +182,10 @@
             <div class="row mt">
                 <!--CUSTOM CHART START -->
                 <div class="border-head">
-                    <h3>VISITS</h3>
+                    <h3>健康宣教</h3>
                 </div>
-                <div class="custom-bar-chart">
-                    <ul class="y-axis">
-                        <li><span>10.000</span></li>
-                        <li><span>8.000</span></li>
-                        <li><span>6.000</span></li>
-                        <li><span>4.000</span></li>
-                        <li><span>2.000</span></li>
-                        <li><span>0</span></li>
-                    </ul>
-                    <div class="bar">
-                        <div class="title">JAN</div>
-                        <div class="value tooltips" data-original-title="8.500" data-toggle="tooltip"
-                             data-placement="top">85%
-                        </div>
-                    </div>
-                    <div class="bar ">
-                        <div class="title">FEB</div>
-                        <div class="value tooltips" data-original-title="5.000" data-toggle="tooltip"
-                             data-placement="top">50%
-                        </div>
-                    </div>
-                    <div class="bar ">
-                        <div class="title">MAR</div>
-                        <div class="value tooltips" data-original-title="6.000" data-toggle="tooltip"
-                             data-placement="top">60%
-                        </div>
-                    </div>
-                    <div class="bar ">
-                        <div class="title">APR</div>
-                        <div class="value tooltips" data-original-title="4.500" data-toggle="tooltip"
-                             data-placement="top">45%
-                        </div>
-                    </div>
-                    <div class="bar">
-                        <div class="title">MAY</div>
-                        <div class="value tooltips" data-original-title="3.200" data-toggle="tooltip"
-                             data-placement="top">32%
-                        </div>
-                    </div>
-                    <div class="bar ">
-                        <div class="title">JUN</div>
-                        <div class="value tooltips" data-original-title="6.200" data-toggle="tooltip"
-                             data-placement="top">62%
-                        </div>
-                    </div>
-                    <div class="bar">
-                        <div class="title">JUL</div>
-                        <div class="value tooltips" data-original-title="7.500" data-toggle="tooltip"
-                             data-placement="top">75%
-                        </div>
-                    </div>
+                <div class="custom-bar-chart" id = "jkxj">
+
                 </div>
                 <!--custom chart end-->
             </div><!-- /row -->
@@ -325,6 +276,23 @@
             });
             $('#usersMain').append(strUser);
 
+        });
+        $.get("/article/getList", '', function (data){
+            $('#jkxj').empty();
+            var str = '';
+            $.each(data.data, function (n, val) {
+                str += "<div class=\"desc\" style='height: 80px;'>\n" +
+                    "                      \t<div class=\"thumb\">\n" +
+                    "                      \t\t<span class=\"badge bg-theme\"><i class=\"fa fa-bookmark-o\"></i></span>\n" +
+                    "                      \t</div>\n" +
+                    "                      \t<div class=\"details\" >\n" +
+                    "                      \t\t<p style='float: left;' title='"+val.present+"'><muted>"+val.dataStr+"</muted><br/>\n" +
+                    "                      \t\t   <a  href=\"/article/goArticle?id="+val.id+"\" target='_blank'>"+val.title+":</a> "+val.present+"<br/>\n" +
+                    "                      \t\t</p>\n" +
+                    "                      \t</div>\n" +
+                    "                      </div>";
+            });
+            $('#jkxj').append(str);
         });
     })
 </script>
