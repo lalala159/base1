@@ -25,7 +25,7 @@ spring:
   thymeleaf:
     mode: LEGACYHTML5
     cache: false
-  #    prefix: class:/templates/
+    prefix: classpath:/templates/
   resources:
     static-locations: classpath:/templates
   redis:

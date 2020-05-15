@@ -55,7 +55,7 @@ public class ArticelController {
     @GetMapping(value = "goArticle")
     public String goArticle(Integer id, Model model) {
         model.addAttribute("id", id);
-        return "/form/article/articleDetail";
+        return "form/article/articleDetail";
     }
 
     @RequestMapping(value = "insert")

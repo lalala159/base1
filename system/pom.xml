@@ -141,9 +141,9 @@
                 </includes>
             </resource>
             <resource>
-                <directory>resources</directory>
+                <directory>src/main/resources</directory>
                 <includes>
-                    <include>**/*</include>
+                    <include>**/*.*</include>
                 </includes>
             </resource>
         </resources>
